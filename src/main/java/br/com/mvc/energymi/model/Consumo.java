@@ -31,4 +31,8 @@ public class Consumo {
 
     @Column(name = "dsObservacoes", length = 250)
     private String observacoes;
+
+    @ManyToOne
+    @JoinColumn(name = "cdAparelho", referencedColumnName = "cdAparelho", insertable = false, updatable = false)
+    private Aparelho aparelho;
 }

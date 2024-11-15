@@ -5,6 +5,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.List;
+
 @Getter
 @Setter
 @NoArgsConstructor
@@ -26,4 +28,17 @@ public class Aparelho {
 
     @Column(name = "nrWatts", nullable = false, precision = 5)
     private Integer watts;
+
+    @OneToMany(mappedBy = "aparelho")
+    private List<Alerta> alertas;
+
+    @ManyToOne
+    @JoinColumn(name = "cdInstalacao", referencedColumnName = "cdInstalacao", insertable = false, updatable = false)
+    private Instalacao instalacao;
+
+    @OneToMany(mappedBy = "aparelho")
+    private List<Consumo> consumos;
+
+    @OneToMany(mappedBy = "aparelho")
+    private List<Recomendacao> recomendacoes;
 }

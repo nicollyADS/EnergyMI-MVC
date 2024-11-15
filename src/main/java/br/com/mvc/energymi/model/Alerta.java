@@ -30,4 +30,10 @@ public class Alerta {
 
     @Column(name = "dtAlerta", nullable = false)
     private LocalDate dataCriacao;
+
+    @ManyToOne
+    @JoinColumn(name = "cdAparelho", referencedColumnName = "cdAparelho", insertable = false, updatable = false)
+    private Aparelho aparelho;
+
+
 }

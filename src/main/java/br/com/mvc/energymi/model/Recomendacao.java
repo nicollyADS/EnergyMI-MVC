@@ -28,4 +28,8 @@ public class Recomendacao {
 
     @Column(name = "stRecomendacao", length = 50)
     private String status;
+
+    @ManyToOne
+    @JoinColumn(name = "cdAparelho", referencedColumnName = "cdAparelho", insertable = false, updatable = false)
+    private Aparelho aparelho;
 }
