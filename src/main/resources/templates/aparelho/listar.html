@@ -1,10 +1,75 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout}">
 <head>
+    <link th:href="@{/webjars/bootstrap/css/bootstrap.min.css}" rel="stylesheet"/>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Listar Aparelhos</title>
 </head>
 <body>
+<div layout:fragment="conteudo">
+    <h1>Aparelhos</h1>
 
+    <!-- Exibição de mensagem de sucesso -->
+    <div class="alert alert-success" th:if="!${#strings.isEmpty(mensagem)}" th:text="${mensagem}"></div>
+
+    <!-- Tabela de Aparelhos -->
+    <table class="table">
+        <thead>
+        <tr>
+            <th>Nome do Aparelho</th>
+            <th>Tipo</th>
+            <th>Watts</th>
+            <th>Id da Instalação</th>
+            <th>Ações</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="aparelho : ${aparelhos}">
+            <td th:text="${aparelho.nome}"></td>
+            <td th:text="${aparelho.tipo}"></td>
+            <td th:text="${aparelho.watts}"></td>
+            <td th:text="${aparelho.instalacao.id}"></td>
+            <td>
+                <!-- Ações: Detalhes, Editar, Remover -->
+                <a th:href="@{/aparelho/detalhes/{id}(id=${aparelho.id})}" class="btn btn-outline-success m-2">Ver Detalhes</a>
+                <a th:href="@{/aparelho/editar/{id}(id=${aparelho.id})}" class="btn btn-outline-primary m-2">Editar</a>
+                <button th:onclick="|aparelhoId.value = ${aparelho.id}|" type="button" class="btn btn-outline-danger" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                    Remover
+                </button>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+
+    <!-- Botão para Cadastrar Novo Aparelho -->
+    <a th:href="@{/aparelho/cadastrar}" class="btn btn-primary">Cadastrar Novo Aparelho</a>
+
+    <!-- Modal de Confirmação de Remoção -->
+    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Confirmação</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    Deseja realmente excluir o aparelho?
+                </div>
+                <div class="modal-footer">
+                    <form th:action="@{/aparelho/remover}" method="post">
+                        <input type="hidden" name="id" id="aparelhoId"/>
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Não</button>
+                        <button type="submit" class="btn btn-danger">Sim</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script th:src="@{/webjars/jquery/jquery.min.js}"></script>
+<script th:src="@{/webjars/bootstrap/js/bootstrap.min.js}"></script>
 </body>
 </html>

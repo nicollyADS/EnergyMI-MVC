@@ -1,10 +1,76 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout}">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Listar Recomendações</title>
+    <link th:href="@{/webjars/bootstrap/css/bootstrap.min.css}" rel="stylesheet"/>
 </head>
 <body>
+<div layout:fragment="conteudo">
+    <h1>Recomendações</h1>
 
+    <!-- Mensagem de sucesso -->
+    <div class="alert alert-success" th:if="!${#strings.isEmpty(mensagem)}" th:text="${mensagem}"></div>
+
+    <!-- Tabela de Recomendações -->
+    <table class="table">
+        <thead>
+        <tr>
+            <th>Observação</th>
+            <th>Data</th>
+            <th>Status</th>
+            <th>Aparelho</th>
+            <th>Ações</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="recomendacao : ${recomendacoes}">
+            <td th:text="${recomendacao.observacao}"></td> <!-- Observação -->
+            <td th:text="${#temporals.format(recomendacao.data, 'dd/MM/yyyy')}"></td>
+            <td th:text="${recomendacao.status}"></td> <!-- Status -->
+            <td th:text="${recomendacao.aparelho.nome}"></td> <!-- Aparelho -->
+            <td>
+                <!-- Ações: Detalhes, Editar, Remover -->
+                <a th:href="@{/recomendacao/detalhes/{id}(id=${recomendacao.id})}" class="btn btn-outline-success">Detalhes</a>
+                <a th:href="@{/recomendacao/editar/{id}(id=${recomendacao.id})}" class="btn btn-outline-primary">Editar</a>
+                <button th:onclick="|recomendacaoId.value = ${recomendacao.id}|" type="button" class="btn btn-outline-danger" data-bs-toggle="modal" data-bs-target="#removerModal">
+                    Remover
+                </button>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+
+    <!-- Botão para cadastrar nova recomendação -->
+    <a th:href="@{/recomendacao/cadastrar}" class="btn btn-primary">Cadastrar Nova Recomendação</a>
+
+    <!-- Modal de confirmação de remoção -->
+    <div class="modal fade" id="removerModal" tabindex="-1" aria-labelledby="removerModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="removerModalLabel">Confirmar Exclusão</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    Você tem certeza que deseja remover esta recomendação?
+                </div>
+                <div class="modal-footer">
+                    <form th:action="@{/recomendacao/remover}" method="post">
+                        <input type="hidden" name="id" id="recomendacaoId"/>
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                        <button type="submit" class="btn btn-danger">Sim, Remover</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<script th:src="@{/webjars/jquery/jquery.min.js}"></script>
+<script th:src="@{/webjars/bootstrap/js/bootstrap.bundle.min.js}"></script>
 </body>
 </html>

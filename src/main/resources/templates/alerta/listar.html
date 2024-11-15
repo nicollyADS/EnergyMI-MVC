@@ -1,10 +1,72 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout}">
 <head>
+    <link th:href="@{/webjars/bootstrap/css/bootstrap.min.css}" rel="stylesheet"/>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Listar Alertas</title>
 </head>
 <body>
+<div layout:fragment="conteudo">
+    <h1>Alertas</h1>
+    <!-- Exibição de mensagem de sucesso -->
+    <div class="alert alert-success" th:if="!${#strings.isEmpty(mensagem)}" th:text="${mensagem}"></div>
 
+    <!-- Tabela de Alertas -->
+    <table class="table">
+        <thead>
+        <tr>
+            <th>Observação</th>
+            <th>Prioridade</th>
+            <th>Data de Criação</th>
+            <th>Ações</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="alerta : ${alertas}">
+            <td th:text="${alerta.observacao}"></td>
+            <td th:text="${alerta.prioridade}"></td>
+            <td th:text="${#temporals.format(alerta.dataCriacao, 'dd/MM/yyyy')}"></td>
+            <td>
+                <!-- Ações: Detalhes, Editar, Remover -->
+                <a th:href="@{/alerta/detalhes/{id}(id=${alerta.id})}" class="btn btn-outline-success m-2">Ver Detalhes</a>
+                <a th:href="@{/alerta/editar/{id}(id=${alerta.id})}" class="btn btn-outline-primary m-2">Editar</a>
+                <button th:onclick="|alertaId.value = ${alerta.id}|" type="button" class="btn btn-outline-danger" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                    Remover
+                </button>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+
+    <!-- Botão para Cadastrar Novo Alerta -->
+    <a th:href="@{/alerta/cadastrar}" class="btn btn-primary">Cadastrar Novo Alerta</a>
+
+    <!-- Modal de Confirmação de Remoção -->
+    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Confirmação</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    Deseja realmente excluir o alerta?
+                </div>
+                <div class="modal-footer">
+                    <form th:action="@{/alerta/remover}" method="post">
+                        <input type="hidden" name="id" id="alertaId"/>
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Não</button>
+                        <button type="submit" class="btn btn-danger">Sim</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script th:src="@{/webjars/jquery/jquery.min.js}"></script>
+<script th:src="@{/webjars/bootstrap/js/bootstrap.min.js}"></script>
 </body>
 </html>

@@ -1,10 +1,80 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout}">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Listar Instalações</title>
+    <link th:href="@{/webjars/bootstrap/css/bootstrap.min.css}" rel="stylesheet"/>
 </head>
 <body>
+<div layout:fragment="conteudo">
+    <h1>Instalações</h1>
 
+    <!-- Mensagem de sucesso -->
+    <div class="alert alert-success" th:if="!${#strings.isEmpty(mensagem)}" th:text="${mensagem}"></div>
+
+    <!-- Tabela de Instalações -->
+    <table class="table">
+        <thead>
+        <tr>
+            <th>Estado</th>
+            <th>Cidade</th>
+            <th>Bairro</th>
+            <th>Rua</th>
+            <th>Número</th>
+            <th>Observações</th>
+            <th>Ações</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="instalacao : ${instalacoes}">
+            <td th:text="${instalacao.estado}"></td> <!-- Estado -->
+            <td th:text="${instalacao.cidade}"></td> <!-- Cidade -->
+            <td th:text="${instalacao.bairro}"></td> <!-- Bairro -->
+            <td th:text="${instalacao.rua}"></td> <!-- Rua -->
+            <td th:text="${instalacao.numeroEndereco}"></td> <!-- Número -->
+            <td th:text="${instalacao.observacoes}"></td> <!-- Observações -->
+            <td>
+                <!-- Ações: Detalhes, Editar, Remover -->
+                <a th:href="@{/instalacao/detalhes/{id}(id=${instalacao.id})}" class="btn btn-outline-success">Detalhes</a>
+                <a th:href="@{/instalacao/editar/{id}(id=${instalacao.id})}" class="btn btn-outline-primary">Editar</a>
+                <button th:onclick="|instalacaoId.value = ${instalacao.id}|" type="button" class="btn btn-outline-danger" data-bs-toggle="modal" data-bs-target="#removerModal">
+                    Remover
+                </button>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+
+    <!-- Botão para cadastrar nova instalação -->
+    <a th:href="@{/instalacao/cadastrar}" class="btn btn-primary">Cadastrar Nova Instalação</a>
+
+    <!-- Modal de confirmação de remoção -->
+    <div class="modal fade" id="removerModal" tabindex="-1" aria-labelledby="removerModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="removerModalLabel">Confirmar Exclusão</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    Você tem certeza que deseja remover esta instalação?
+                </div>
+                <div class="modal-footer">
+                    <form th:action="@{/instalacao/remover}" method="post">
+                        <input type="hidden" name="id" id="instalacaoId"/>
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                        <button type="submit" class="btn btn-danger">Sim, Remover</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<script th:src="@{/webjars/jquery/jquery.min.js}"></script>
+<script th:src="@{/webjars/bootstrap/js/bootstrap.bundle.min.js}"></script>
 </body>
 </html>
