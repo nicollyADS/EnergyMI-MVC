@@ -41,7 +41,6 @@ public class Alerta {
     @Column(name = "dtAlerta", nullable = false)
     private LocalDate dataCriacao;
 
-    @NotNull(message = "O aparelho não pode ser nulo")
     @ManyToOne
     @JoinColumn(name = "cdAparelho", referencedColumnName = "cdAparelho", nullable = false)
     private Aparelho aparelho;

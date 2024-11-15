@@ -42,7 +42,6 @@ public class Consumo {
     @Column(name = "dsObservacoes", length = 250)
     private String observacoes;
 
-    @NotNull(message = "O aparelho não pode ser nulo")
     @ManyToOne
     @JoinColumn(name = "cdAparelho", referencedColumnName = "cdAparelho", nullable = false)
     private Aparelho aparelho;

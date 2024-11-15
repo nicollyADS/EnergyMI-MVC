@@ -40,20 +40,16 @@ public class Aparelho {
     @Column(name = "nrWatts", nullable = false, precision = 5)
     private Integer watts;
 
-    @NotEmpty(message = "A lista de alertas não pode ser vazia")
     @OneToMany(mappedBy = "aparelho", cascade = CascadeType.ALL)
     private List<Alerta> alertas;
 
-    @NotNull(message = "A instalação não pode ser nula")
     @ManyToOne
     @JoinColumn(name = "cdInstalacao", referencedColumnName = "cdInstalacao", nullable = false)
     private Instalacao instalacao;
 
-    @NotEmpty(message = "A lista de consumos não pode ser vazia")
     @OneToMany(mappedBy = "aparelho", cascade = CascadeType.ALL)
     private List<Consumo> consumos;
 
-    @NotEmpty(message = "A lista de recomendações não pode ser vazia")
     @OneToMany(mappedBy = "aparelho", cascade = CascadeType.ALL)
     private List<Recomendacao> recomendacoes;
 }

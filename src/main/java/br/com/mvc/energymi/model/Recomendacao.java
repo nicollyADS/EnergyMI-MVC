@@ -36,7 +36,6 @@ public class Recomendacao {
     @Column(name = "stRecomendacao", length = 50)
     private String status;
 
-    @NotNull(message = "O aparelho não pode ser nulo")
     @ManyToOne
     @JoinColumn(name = "cdAparelho", nullable = false)
     private Aparelho aparelho;
