@@ -1,10 +1,69 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout}">
 <head>
+    <link th:href="@{/webjars/bootstrap/css/bootstrap.min.css}" rel="stylesheet"/>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Editar Consumo</title>
 </head>
 <body>
+<div layout:fragment="conteudo">
+    <h1>Editar Consumo</h1>
+    <form th:action="@{/consumo/editar}" th:object="${consumo}" method="post">
+        <!-- Mensagem de erro -->
+        <div class="alert alert-danger" th:if="${#fields.hasErrors('*')}">
+            <p th:each="err : ${#fields.errors('*')}" th:text="${err}"></p>
+        </div>
 
+        <input th:field="*{id}" type="hidden"/>
+
+        <!-- Data do Consumo -->
+        <div class="mb-3">
+            <label class="form-label">Data do Consumo</label>
+            <input class="form-control" th:field="*{data}" type="date" id="data" required>
+            <p th:if="${#fields.hasErrors('data')}" class="text text-danger" th:errors="*{data}"></p>
+        </div>
+
+        <!-- Consumo de Energia -->
+        <div class="mb-3">
+            <label class="form-label">Consumo de Energia (kWh)</label>
+            <input class="form-control" th:field="*{consumoEnergia}" type="number" id="consumoEnergia" placeholder="Informe o consumo de energia" required>
+            <p th:if="${#fields.hasErrors('consumoEnergia')}" class="text text-danger" th:errors="*{consumoEnergia}"></p>
+        </div>
+
+        <!-- Custo -->
+        <div class="mb-3">
+            <label class="form-label">Custo (R$)</label>
+            <input class="form-control" th:field="*{custo}" type="number" id="custo" placeholder="Informe o custo" required step="0.01">
+            <p th:if="${#fields.hasErrors('custo')}" class="text text-danger" th:errors="*{custo}"></p>
+        </div>
+
+        <!-- Observações -->
+        <div class="mb-3">
+            <label class="form-label">Observações</label>
+            <textarea class="form-control" th:field="*{observacoes}" id="observacoes" placeholder="Informe observações"></textarea>
+            <p th:if="${#fields.hasErrors('observacoes')}" class="text text-danger" th:errors="*{observacoes}"></p>
+        </div>
+
+        <!-- Aparelho -->
+        <div class="mb-3">
+            <label class="form-label">Aparelho</label>
+            <select th:field="*{aparelho.id}" class="form-select">
+                <option value="">Selecione</option>
+                <option th:each="aparelho : ${aparelhos}"
+                        th:value="${aparelho.id}"
+                        th:text="${aparelho.nome}"></option>
+            </select>
+        </div>
+
+        <button class="btn btn-success">Salvar</button>
+
+        <br>
+        <p th:text="${mensagem}"></p>
+    </form>
+</div>
+
+<script th:src="@{/webjars/jquery/jquery.min.js}"></script>
+<script th:src="@{/webjars/bootstrap/js/bootstrap.min.js}"></script>
 </body>
 </html>

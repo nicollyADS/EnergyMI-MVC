@@ -1,10 +1,57 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-br" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout}">
 <head>
+    <link th:href="@{/webjars/bootstrap/css/bootstrap.min.css}" rel="stylesheet"/>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Editar Aparelho</title>
 </head>
 <body>
+<div layout:fragment="conteudo">
+    <h1>Editar Aparelho</h1>
+    <form th:action="@{/aparelho/editar}" th:object="${aparelho}" method="post">
+        <div class="alert alert-danger" th:if="${#fields.hasErrors('*')}">
+            <p th:each="err : ${#fields.errors('*')}" th:text="${err}"></p>
+        </div>
+        <input th:field="*{id}" type="hidden"/>
 
+        <div class="mb-3">
+            <label class="form-label">Nome do Aparelho</label>
+            <input class="form-control" th:field="*{nome}" type="text" placeholder="Informe o nome do aparelho" required>
+            <p th:if="${#fields.hasErrors('nome')}" class="text text-danger" th:errors="*{nome}"></p>
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">Tipo de Aparelho</label>
+            <input class="form-control" th:field="*{tipo}" type="text" placeholder="Informe o tipo do aparelho" required>
+            <p th:if="${#fields.hasErrors('tipo')}" class="text text-danger" th:errors="*{tipo}"></p>
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">Watts</label>
+            <input class="form-control" th:field="*{watts}" type="number" placeholder="Informe os watts" required>
+            <p th:if="${#fields.hasErrors('watts')}" class="text text-danger" th:errors="*{watts}"></p>
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">Instalação</label>
+            <select th:field="*{instalacao.id}" class="form-select" required>
+                <option value="">Selecione a instalação</option>
+                <option th:each="instalacao : ${instalacoes}"
+                        th:value="${instalacao.id}"
+                        th:text="${instalacao.id}"></option>
+            </select>
+            <p th:if="${#fields.hasErrors('instalacao')}" class="text text-danger" th:errors="*{instalacao}"></p>
+        </div>
+
+        <button class="btn btn-success">Salvar</button>
+
+        <br>
+        <p th:text="${mensagem}"></p>
+    </form>
+</div>
+
+<script th:src="@{/webjars/jquery/jquery.min.js}"></script>
+<script th:src="@{/webjars/bootstrap/js/bootstrap.min.js}"></script>
 </body>
 </html>

@@ -1,10 +1,56 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout}">
 <head>
+    <link th:href="@{/webjars/bootstrap/css/bootstrap.min.css}" rel="stylesheet"/>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Editar Recomendação</title>
 </head>
 <body>
+<div layout:fragment="conteudo">
+    <h1>Editar Recomendação</h1>
+    <form th:action="@{/recomendacao/editar}" th:object="${recomendacao}" method="post">
+        <div class="alert alert-danger" th:if="${#fields.hasErrors('*')}">
+            <p th:each="err : ${#fields.errors('*')}" th:text="${err}"></p>
+        </div>
+        <input th:field="*{id}" type="hidden"/>
 
+        <div class="mb-3">
+            <label class="form-label">Observação</label>
+            <input class="form-control" th:field="*{observacao}" type="text" id="observacao" placeholder="Informe a observação" required>
+            <p th:if="${#fields.hasErrors('observacao')}" class="text text-danger" th:errors="*{observacao}"></p>
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">Data</label>
+            <input class="form-control" th:field="*{data}" type="date" id="data" required>
+            <p th:if="${#fields.hasErrors('data')}" class="text text-danger" th:errors="*{data}"></p>
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">Status</label>
+            <input class="form-control" th:field="*{status}" type="text" id="status" placeholder="Informe o status" required>
+            <p th:if="${#fields.hasErrors('status')}" class="text text-danger" th:errors="*{status}"></p>
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">Aparelho</label>
+            <select th:field="*{aparelho.id}" class="form-select">
+                <option value="">Selecione</option>
+                <option th:each="aparelho : ${aparelhos}"
+                        th:value="${aparelho.id}"
+                        th:text="${aparelho.nome}"></option>
+            </select>
+        </div>
+
+        <button class="btn btn-success">Salvar</button>
+
+        <br>
+        <p th:text="${mensagem}"></p>
+    </form>
+</div>
+
+<script th:src="@{/webjars/jquery/jquery.min.js}"></script>
+<script th:src="@{/webjars/bootstrap/js/bootstrap.min.js}"></script>
 </body>
 </html>
