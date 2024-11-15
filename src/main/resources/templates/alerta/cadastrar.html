@@ -13,12 +13,10 @@
 
     <h1>Cadastro de Alerta</h1>
 
-    <!-- Mensagem de sucesso -->
     <div th:if="${mensagem}" class="alert alert-success" role="alert">
         <p th:text="${mensagem}">Alerta cadastrado com sucesso!</p>
     </div>
 
-    <!-- Formulário de cadastro do alerta -->
     <form th:action="@{/alerta/cadastrar}" th:object="${alerta}" method="post">
         <div class="mb-3">
             <label for="observacao" class="form-label">Observação</label>
@@ -34,6 +32,14 @@
             <label for="dataCriacao" class="form-label">Data de Criação</label>
             <input type="date" class="form-control" id="dataCriacao" th:field="*{dataCriacao}" placeholder="Informe a data de criação">
             <div th:if="${#fields.hasErrors('dataCriacao')}" class="text-danger" th:errors="*{dataCriacao}"></div>
+        </div>
+        <div class="mb-3">
+            <label for="aparelho" class="form-label">Aparelho</label>
+            <select class="form-control" id="aparelho" th:field="*{aparelho.id}">
+                <option value="" disabled selected>Selecione um aparelho</option>
+                <option th:each="aparelho : ${aparelhos}" th:value="${aparelho.id}" th:text="${aparelho.nome}"></option>
+            </select>
+            <div th:if="${#fields.hasErrors('aparelho.id')}" class="text-danger" th:errors="*{aparelho.id}"></div>
         </div>
         <button type="submit" class="btn btn-primary">Cadastrar</button>
     </form>

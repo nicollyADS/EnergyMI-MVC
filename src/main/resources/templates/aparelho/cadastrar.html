@@ -13,12 +13,10 @@
 
     <h1>Cadastro de Aparelho</h1>
 
-    <!-- Mensagem de sucesso -->
     <div th:if="${mensagem}" class="alert alert-success" role="alert">
         <p th:text="${mensagem}">Aparelho cadastrado com sucesso!</p>
     </div>
 
-    <!-- Formulário de cadastro do aparelho -->
     <form th:action="@{/aparelho/cadastrar}" th:object="${aparelho}" method="post">
         <div class="mb-3">
             <label for="nome" class="form-label">Nome do Aparelho</label>
@@ -35,6 +33,17 @@
             <input type="number" class="form-control" id="watts" th:field="*{watts}" placeholder="Informe a potência em watts">
             <div th:if="${#fields.hasErrors('watts')}" class="text-danger" th:errors="*{watts}"></div>
         </div>
+
+        <div class="mb-3">
+            <label for="instalacao" class="form-label">Instalação</label>
+            <select class="form-control" id="instalacao" th:field="*{instalacao.id}">
+                <option value="" disabled selected>Selecione uma instalação</option>
+                <option th:each="instalacao : ${instalacoes}" th:value="${instalacao.id}" th:text="${instalacao.id}"></option>
+            </select>
+            <div th:if="${#fields.hasErrors('instalacao.id')}" class="text-danger" th:errors="*{instalacao.id}"></div>
+        </div>
+
+
         <button type="submit" class="btn btn-primary">Cadastrar</button>
     </form>
 </div>
