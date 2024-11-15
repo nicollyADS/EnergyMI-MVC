@@ -11,10 +11,8 @@
 <div layout:fragment="conteudo">
     <h1>Recomendações</h1>
 
-    <!-- Mensagem de sucesso -->
     <div class="alert alert-success" th:if="!${#strings.isEmpty(mensagem)}" th:text="${mensagem}"></div>
 
-    <!-- Tabela de Recomendações -->
     <table class="table">
         <thead>
         <tr>
@@ -27,12 +25,11 @@
         </thead>
         <tbody>
         <tr th:each="recomendacao : ${recomendacoes}">
-            <td th:text="${recomendacao.observacao}"></td> <!-- Observação -->
+            <td th:text="${recomendacao.observacao}"></td>
             <td th:text="${#temporals.format(recomendacao.data, 'dd/MM/yyyy')}"></td>
-            <td th:text="${recomendacao.status}"></td> <!-- Status -->
-            <td th:text="${recomendacao.aparelho.nome}"></td> <!-- Aparelho -->
+            <td th:text="${recomendacao.status}"></td>
+            <td th:text="${recomendacao.aparelho.nome}"></td>
             <td>
-                <!-- Ações: Detalhes, Editar, Remover -->
                 <a th:href="@{/recomendacao/detalhes/{id}(id=${recomendacao.id})}" class="btn btn-outline-success">Detalhes</a>
                 <a th:href="@{/recomendacao/editar/{id}(id=${recomendacao.id})}" class="btn btn-outline-primary">Editar</a>
                 <button th:onclick="|recomendacaoId.value = ${recomendacao.id}|" type="button" class="btn btn-outline-danger" data-bs-toggle="modal" data-bs-target="#removerModal">
@@ -43,10 +40,8 @@
         </tbody>
     </table>
 
-    <!-- Botão para cadastrar nova recomendação -->
     <a th:href="@{/recomendacao/cadastrar}" class="btn btn-primary">Cadastrar Nova Recomendação</a>
 
-    <!-- Modal de confirmação de remoção -->
     <div class="modal fade" id="removerModal" tabindex="-1" aria-labelledby="removerModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">

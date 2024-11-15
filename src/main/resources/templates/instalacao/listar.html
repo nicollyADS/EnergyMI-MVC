@@ -29,14 +29,13 @@
         </thead>
         <tbody>
         <tr th:each="instalacao : ${instalacoes}">
-            <td th:text="${instalacao.estado}"></td> <!-- Estado -->
-            <td th:text="${instalacao.cidade}"></td> <!-- Cidade -->
-            <td th:text="${instalacao.bairro}"></td> <!-- Bairro -->
-            <td th:text="${instalacao.rua}"></td> <!-- Rua -->
-            <td th:text="${instalacao.numeroEndereco}"></td> <!-- Número -->
-            <td th:text="${instalacao.observacoes}"></td> <!-- Observações -->
+            <td th:text="${instalacao.estado}"></td>
+            <td th:text="${instalacao.cidade}"></td>
+            <td th:text="${instalacao.bairro}"></td>
+            <td th:text="${instalacao.rua}"></td>
+            <td th:text="${instalacao.numeroEndereco}"></td>
+            <td th:text="${instalacao.observacoes}"></td>
             <td>
-                <!-- Ações: Detalhes, Editar, Remover -->
                 <a th:href="@{/instalacao/detalhes/{id}(id=${instalacao.id})}" class="btn btn-outline-success">Detalhes</a>
                 <a th:href="@{/instalacao/editar/{id}(id=${instalacao.id})}" class="btn btn-outline-primary">Editar</a>
                 <button th:onclick="|instalacaoId.value = ${instalacao.id}|" type="button" class="btn btn-outline-danger" data-bs-toggle="modal" data-bs-target="#removerModal">
@@ -47,10 +46,8 @@
         </tbody>
     </table>
 
-    <!-- Botão para cadastrar nova instalação -->
     <a th:href="@{/instalacao/cadastrar}" class="btn btn-primary">Cadastrar Nova Instalação</a>
 
-    <!-- Modal de confirmação de remoção -->
     <div class="modal fade" id="removerModal" tabindex="-1" aria-labelledby="removerModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">

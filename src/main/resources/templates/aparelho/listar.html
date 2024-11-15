@@ -11,10 +11,8 @@
 <div layout:fragment="conteudo">
     <h1>Aparelhos</h1>
 
-    <!-- Exibição de mensagem de sucesso -->
     <div class="alert alert-success" th:if="!${#strings.isEmpty(mensagem)}" th:text="${mensagem}"></div>
 
-    <!-- Tabela de Aparelhos -->
     <table class="table">
         <thead>
         <tr>
@@ -32,7 +30,6 @@
             <td th:text="${aparelho.watts}"></td>
             <td th:text="${aparelho.instalacao.id}"></td>
             <td>
-                <!-- Ações: Detalhes, Editar, Remover -->
                 <a th:href="@{/aparelho/detalhes/{id}(id=${aparelho.id})}" class="btn btn-outline-success m-2">Ver Detalhes</a>
                 <a th:href="@{/aparelho/editar/{id}(id=${aparelho.id})}" class="btn btn-outline-primary m-2">Editar</a>
                 <button th:onclick="|aparelhoId.value = ${aparelho.id}|" type="button" class="btn btn-outline-danger" data-bs-toggle="modal" data-bs-target="#exampleModal">
@@ -43,10 +40,8 @@
         </tbody>
     </table>
 
-    <!-- Botão para Cadastrar Novo Aparelho -->
     <a th:href="@{/aparelho/cadastrar}" class="btn btn-primary">Cadastrar Novo Aparelho</a>
 
-    <!-- Modal de Confirmação de Remoção -->
     <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">

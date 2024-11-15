@@ -11,10 +11,8 @@
 <div layout:fragment="conteudo">
     <h1>Consumos</h1>
 
-    <!-- Mensagem de sucesso -->
     <div class="alert alert-success" th:if="!${#strings.isEmpty(mensagem)}" th:text="${mensagem}"></div>
 
-    <!-- Tabela de Consumos -->
     <table class="table">
         <thead>
         <tr>
@@ -28,13 +26,12 @@
         </thead>
         <tbody>
         <tr th:each="consumo : ${consumos}">
-            <td th:text="${consumo.aparelho.nome}"></td> <!-- Nome do Aparelho -->
-            <td th:text="${#temporals.format(consumo.data, 'dd/MM/yyyy')}"></td> <!-- Data do Consumo -->
-            <td th:text="${consumo.consumoEnergia}"></td> <!-- Consumo de Energia -->
-            <td th:text="${consumo.custo}"></td> <!-- Custo -->
-            <td th:text="${consumo.observacoes}"></td> <!-- Observações -->
+            <td th:text="${consumo.aparelho.nome}"></td>
+            <td th:text="${#temporals.format(consumo.data, 'dd/MM/yyyy')}"></td>
+            <td th:text="${consumo.consumoEnergia}"></td>
+            <td th:text="${consumo.custo}"></td>
+            <td th:text="${consumo.observacoes}"></td>
             <td>
-                <!-- Ações: Detalhes, Editar, Remover -->
                 <a th:href="@{/consumo/detalhes/{id}(id=${consumo.id})}" class="btn btn-outline-success">Detalhes</a>
                 <a th:href="@{/consumo/editar/{id}(id=${consumo.id})}" class="btn btn-outline-primary">Editar</a>
                 <button th:onclick="|consumoId.value = ${consumo.id}|" type="button" class="btn btn-outline-danger" data-bs-toggle="modal" data-bs-target="#removerModal">
@@ -45,10 +42,8 @@
         </tbody>
     </table>
 
-    <!-- Botão para cadastrar novo consumo -->
     <a th:href="@{/consumo/cadastrar}" class="btn btn-primary">Cadastrar Novo Consumo</a>
 
-    <!-- Modal de confirmação de remoção -->
     <div class="modal fade" id="removerModal" tabindex="-1" aria-labelledby="removerModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
