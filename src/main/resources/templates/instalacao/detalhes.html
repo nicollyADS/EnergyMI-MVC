@@ -1,10 +1,29 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title th:text="'Detalhes da Instalação: ' + ${instalacao.id}">Detalhes da Instalação</title>
+    <link th:href="@{/webjars/bootstrap/css/bootstrap.min.css}" rel="stylesheet"/>
 </head>
 <body>
+<div layout:fragment="conteudo" class="container mt-4">
+    <h1>Detalhes da Instalação</h1>
+    <p><strong>ID da Instalação:</strong> <span th:text="${instalacao.id}"></span></p>
+    <p><strong>Estado:</strong> <span th:text="${instalacao.estado}"></span></p>
+    <p><strong>Cidade:</strong> <span th:text="${instalacao.cidade}"></span></p>
+    <p><strong>Bairro:</strong> <span th:text="${instalacao.bairro}"></span></p>
+    <p><strong>Rua:</strong> <span th:text="${instalacao.rua}"></span></p>
+    <p><strong>Número do Endereço:</strong> <span th:text="${instalacao.numeroEndereco}"></span></p>
+    <p><strong>Observações:</strong>
+        <span th:if="${instalacao.observacoes != null}" th:text="${instalacao.observacoes}"></span>
+        <span th:if="${instalacao.observacoes == null}">Sem observações registradas</span>
+    </p>
 
+    <a th:href="@{/instalacao/listar}" class="btn btn-secondary">Voltar para a lista de instalações</a>
+</div>
+
+<script th:src="@{/webjars/jquery/jquery.min.js}"></script>
+<script th:src="@{/webjars/bootstrap/js/bootstrap.bundle.min.js}"></script>
 </body>
 </html>

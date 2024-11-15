@@ -33,6 +33,6 @@ public class Consumo {
     private String observacoes;
 
     @ManyToOne
-    @JoinColumn(name = "cdAparelho", referencedColumnName = "cdAparelho", insertable = false, updatable = false)
+    @JoinColumn(name = "cdAparelho", referencedColumnName = "cdAparelho", nullable = false)
     private Aparelho aparelho;
 }

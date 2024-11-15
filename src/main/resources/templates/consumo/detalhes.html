@@ -1,10 +1,26 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title th:text="'Detalhes do Consumo: ' + ${consumo.id}">Detalhes do Consumo</title>
+    <link th:href="@{/webjars/bootstrap/css/bootstrap.min.css}" rel="stylesheet"/>
 </head>
 <body>
+<div layout:fragment="conteudo" class="container mt-4">
+    <h1>Detalhes do Consumo</h1>
+    <p><strong>ID do Consumo:</strong> <span th:text="${consumo.id}"></span></p>
+    <p><strong>Data do Consumo:</strong> <span th:text="${#temporals.format(consumo.data, 'dd/MM/yyyy')}"></span></p>
+    <p><strong>Consumo de Energia (kWh):</strong> <span th:text="${consumo.consumoEnergia}"></span></p>
+    <p><strong>Custo (R$):</strong> <span th:text="${consumo.custo}"></span></p>
+    <p><strong>Observações: </strong> <span th:text="${consumo.observacoes}"></span></p>
+    <p><strong>Aparelho: </strong> <span th:text="${consumo.aparelho.nome}"></span></p>
 
+
+    <a th:href="@{/consumo/listar}" class="btn btn-secondary">Voltar para a lista de consumos</a>
+</div>
+
+<script th:src="@{/webjars/jquery/jquery.min.js}"></script>
+<script th:src="@{/webjars/bootstrap/js/bootstrap.bundle.min.js}"></script>
 </body>
 </html>

@@ -30,6 +30,6 @@ public class Recomendacao {
     private String status;
 
     @ManyToOne
-    @JoinColumn(name = "cdAparelho", referencedColumnName = "cdAparelho", insertable = false, updatable = false)
+    @JoinColumn(name = "cdAparelho", nullable = false)
     private Aparelho aparelho;
 }

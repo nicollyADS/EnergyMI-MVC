@@ -1,10 +1,25 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title th:text="'Detalhes da Recomendação: ' + ${recomendacao.id}">Detalhes da Recomendação</title>
+    <link th:href="@{/webjars/bootstrap/css/bootstrap.min.css}" rel="stylesheet"/>
 </head>
 <body>
+<div layout:fragment="conteudo" class="container mt-4">
+    <h1>Detalhes da Recomendação</h1>
+    <p><strong>ID da Recomendação:</strong> <span th:text="${recomendacao.id}"></span></p>
+    <p><strong>Data da Recomendação:</strong> <span th:text="${#temporals.format(recomendacao.data, 'dd/MM/yyyy')}"></span></p>
+    <p><strong>Status:</strong> <span th:text="${recomendacao.status}"></span></p>
+    <p><strong>ID da Recomendação:</strong> <span th:text="${recomendacao.id}"></span></p>
+    <p><strong>Observações:</strong> <span th:text="${recomendacao.observacao}"></span></p>
+    <p><strong>Aparelho:</strong> <span th:text="${recomendacao.aparelho.nome}"></span></p>
 
+    <a th:href="@{/recomendacao/listar}" class="btn btn-secondary">Voltar para a lista de recomendações</a>
+</div>
+
+<script th:src="@{/webjars/jquery/jquery.min.js}"></script>
+<script th:src="@{/webjars/bootstrap/js/bootstrap.bundle.min.js}"></script>
 </body>
 </html>

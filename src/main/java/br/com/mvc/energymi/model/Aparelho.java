@@ -29,16 +29,16 @@ public class Aparelho {
     @Column(name = "nrWatts", nullable = false, precision = 5)
     private Integer watts;
 
-    @OneToMany(mappedBy = "aparelho")
+    @OneToMany(mappedBy = "aparelho", cascade = CascadeType.ALL)
     private List<Alerta> alertas;
 
     @ManyToOne
-    @JoinColumn(name = "cdInstalacao", referencedColumnName = "cdInstalacao", insertable = false, updatable = false)
+    @JoinColumn(name = "cdInstalacao", referencedColumnName = "cdInstalacao",nullable = false)
     private Instalacao instalacao;
 
-    @OneToMany(mappedBy = "aparelho")
+    @OneToMany(mappedBy = "aparelho", cascade = CascadeType.ALL)
     private List<Consumo> consumos;
 
-    @OneToMany(mappedBy = "aparelho")
+    @OneToMany(mappedBy = "aparelho", cascade = CascadeType.ALL)
     private List<Recomendacao> recomendacoes;
 }

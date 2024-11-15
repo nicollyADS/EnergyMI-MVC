@@ -1,10 +1,26 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title th:text="'Detalhes do Aparelho: ' + ${aparelho.id}">Detalhes do Aparelho</title>
+    <link th:href="@{/webjars/bootstrap/css/bootstrap.min.css}" rel="stylesheet"/>
 </head>
 <body>
+<div layout:fragment="conteudo" class="container mt-4">
+    <h1>Detalhes do Aparelho</h1>
+    <p><strong>ID do Aparelho:</strong> <span th:text="${aparelho.id}"></span></p>
+    <p><strong>Nome:</strong> <span th:text="${aparelho.nome}"></span></p>
+    <p><strong>Tipo:</strong> <span th:text="${aparelho.tipo}"></span></p>
+    <p><strong>Potência (Watts):</strong> <span th:text="${aparelho.watts}"></span></p>
+    <p><strong>Id da Instalação:</strong>
+        <span th:if="${aparelho.instalacao != null}" th:text="${aparelho.instalacao.id}"></span>
+        <span th:if="${aparelho.instalacao == null}">Não vinculada</span>
+    </p>
+    <a th:href="@{/aparelho/listar}" class="btn btn-secondary">Voltar para a lista de aparelhos</a>
+</div>
 
+<script th:src="@{/webjars/jquery/jquery.min.js}"></script>
+<script th:src="@{/webjars/bootstrap/js/bootstrap.bundle.min.js}"></script>
 </body>
 </html>

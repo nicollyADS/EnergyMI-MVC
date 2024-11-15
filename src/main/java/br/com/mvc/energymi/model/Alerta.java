@@ -32,7 +32,7 @@ public class Alerta {
     private LocalDate dataCriacao;
 
     @ManyToOne
-    @JoinColumn(name = "cdAparelho", referencedColumnName = "cdAparelho", insertable = false, updatable = false)
+    @JoinColumn(name = "cdAparelho", referencedColumnName = "cdAparelho", nullable = false)
     private Aparelho aparelho;
 
 
