@@ -1,6 +1,10 @@
 package br.com.mvc.energymi.model;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
+import jakarta.validation.constraints.Pattern;
+import jakarta.validation.constraints.PastOrPresent;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -22,18 +26,24 @@ public class Alerta {
     @Column(name = "cdAlerta", length = 10)
     private Long id;
 
+    @NotNull(message = "A observação não pode ser nula")
+    @Size(max = 100, message = "A observação não pode ter mais de 100 caracteres")
     @Column(name = "dsObservacao", nullable = false, length = 100)
     private String observacao;
 
+    @NotNull(message = "O nível de prioridade não pode ser nulo")
+    @Size(min = 3, max = 5, message = "O nível de prioridade deve ter entre 3 e 5 caracteres")
     @Column(name = "stNivelPrioridade", nullable = false, length = 5)
     private String prioridade;
 
+    @NotNull(message = "A data de criação não pode ser nula")
+    @PastOrPresent(message = "A data de criação não pode ser no futuro")
     @Column(name = "dtAlerta", nullable = false)
     private LocalDate dataCriacao;
 
+    @NotNull(message = "O aparelho não pode ser nulo")
     @ManyToOne
     @JoinColumn(name = "cdAparelho", referencedColumnName = "cdAparelho", nullable = false)
     private Aparelho aparelho;
-
 
 }
