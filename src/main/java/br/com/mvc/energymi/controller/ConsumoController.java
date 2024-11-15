@@ -2,6 +2,7 @@ package br.com.mvc.energymi.controller;
 
 
 import br.com.mvc.energymi.model.Consumo;
+import br.com.mvc.energymi.repository.AparelhoRepository;
 import br.com.mvc.energymi.repository.ConsumoRepository;
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
@@ -24,9 +25,13 @@ public class ConsumoController {
     @Autowired
     private ConsumoRepository consumoRepository;
 
+    @Autowired
+    private AparelhoRepository aparelhoRepository;
+
 
     @GetMapping("cadastrar")
     public String cadastrar(Consumo consumo, Model model) {
+        model.addAttribute("aparelhos", aparelhoRepository.findAll());
         model.addAttribute("consumo", new Consumo());
 
         return "consumo/cadastrar";
@@ -37,7 +42,7 @@ public class ConsumoController {
     @Transactional
     public String cadastrar(@Valid Consumo consumo, BindingResult result, RedirectAttributes redirectAttributes, Model model) {
         if (result.hasErrors()) {
-
+            model.addAttribute("aparelhos", aparelhoRepository.findAll());
             return "consumo/cadastrar";
         }
         consumoRepository.save(consumo);
@@ -57,6 +62,7 @@ public class ConsumoController {
     public String detalhesConsumo(@PathVariable Long id, Model model) {
         Optional<Consumo> optionalConsumo = consumoRepository.findById(id);
         if (optionalConsumo.isPresent()) {
+            model.addAttribute("aparelhos", aparelhoRepository.findAll());
             model.addAttribute("consumo", optionalConsumo.get());
         } else {
             model.addAttribute("erro", "consumo não encontrado");
@@ -68,6 +74,7 @@ public class ConsumoController {
 
     @GetMapping("editar/{id}")
     public String editar(@PathVariable("id") Long id, Model model) {
+        model.addAttribute("aparelhos", aparelhoRepository.findAll());
         model.addAttribute("consumo", consumoRepository.findById(id));
         return "consumo/editar";
     }
@@ -76,6 +83,7 @@ public class ConsumoController {
     @PostMapping("editar")
     public String editar(@Valid Consumo consumo, BindingResult result, RedirectAttributes redirectAttributes, Model model) {
         if (result.hasErrors()) {
+            model.addAttribute("aparelhos", aparelhoRepository.findAll());
             return "consumo/editar";
         }
         consumoRepository.save(consumo);

@@ -1,7 +1,9 @@
 package br.com.mvc.energymi.controller;
 
 import br.com.mvc.energymi.model.Aparelho;
+import br.com.mvc.energymi.model.Instalacao;
 import br.com.mvc.energymi.repository.AparelhoRepository;
+import br.com.mvc.energymi.repository.InstalacaoRepository;
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,9 +25,13 @@ public class AparelhoController {
     @Autowired
     private AparelhoRepository aparelhoRepository;
 
+    @Autowired
+    private InstalacaoRepository instalacaoRepository;
+
 
     @GetMapping("cadastrar")
     public String cadastrar(Aparelho aparelho, Model model) {
+        model.addAttribute("instalacoes", instalacaoRepository.findAll());
         model.addAttribute("aparelho", new Aparelho());
 
         return "aparelho/cadastrar";
@@ -36,7 +42,7 @@ public class AparelhoController {
     @Transactional
     public String cadastrar(@Valid Aparelho aparelho, BindingResult result, RedirectAttributes redirectAttributes, Model model) {
         if (result.hasErrors()) {
-
+            model.addAttribute("instalacoes", instalacaoRepository.findAll());
             return "aparelho/cadastrar";
         }
         aparelhoRepository.save(aparelho);
@@ -56,6 +62,8 @@ public class AparelhoController {
     public String detalhesAparelho(@PathVariable Long id, Model model) {
         Optional<Aparelho> optionalAparelho = aparelhoRepository.findById(id);
         if (optionalAparelho.isPresent()) {
+            model.addAttribute("instalacoes", instalacaoRepository.findAll());
+
             model.addAttribute("aparelho", optionalAparelho.get());
         } else {
             model.addAttribute("erro", "aparelho não encontrado");
@@ -67,6 +75,7 @@ public class AparelhoController {
 
     @GetMapping("editar/{id}")
     public String editar(@PathVariable("id") Long id, Model model) {
+        model.addAttribute("instalacoes", instalacaoRepository.findAll());
         model.addAttribute("aparelho", aparelhoRepository.findById(id));
         return "aparelho/editar";
     }
@@ -75,6 +84,7 @@ public class AparelhoController {
     @PostMapping("editar")
     public String editar(@Valid Aparelho aparelho, BindingResult result, RedirectAttributes redirectAttributes, Model model) {
         if (result.hasErrors()) {
+            model.addAttribute("instalacoes", instalacaoRepository.findAll());
             return "aparelho/editar";
         }
         aparelhoRepository.save(aparelho);

@@ -1,6 +1,7 @@
 package br.com.mvc.energymi.controller;
 
 import br.com.mvc.energymi.model.Recomendacao;
+import br.com.mvc.energymi.repository.AparelhoRepository;
 import br.com.mvc.energymi.repository.RecomendacaoRepository;
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
@@ -23,9 +24,12 @@ public class RecomendacaoController {
     @Autowired
     private RecomendacaoRepository recomendacaoRepository;
 
+    @Autowired
+    private AparelhoRepository aparelhoRepository;
 
     @GetMapping("cadastrar")
     public String cadastrar(Recomendacao recomendacao, Model model) {
+        model.addAttribute("aparelhos", aparelhoRepository.findAll());
         model.addAttribute("recomendacao", new Recomendacao());
 
         return "recomendacao/cadastrar";
@@ -36,7 +40,7 @@ public class RecomendacaoController {
     @Transactional
     public String cadastrar(@Valid Recomendacao recomendacao, BindingResult result, RedirectAttributes redirectAttributes, Model model) {
         if (result.hasErrors()) {
-
+            model.addAttribute("aparelhos", aparelhoRepository.findAll());
             return "recomendacao/cadastrar";
         }
         recomendacaoRepository.save(recomendacao);
@@ -56,6 +60,7 @@ public class RecomendacaoController {
     public String detalhesRecomendacao(@PathVariable Long id, Model model) {
         Optional<Recomendacao> optionalRecomendacao = recomendacaoRepository.findById(id);
         if (optionalRecomendacao.isPresent()) {
+            model.addAttribute("aparelhos", aparelhoRepository.findAll());
             model.addAttribute("recomendacao", optionalRecomendacao.get());
         } else {
             model.addAttribute("erro", "recomendacao não encontrada");
@@ -67,6 +72,7 @@ public class RecomendacaoController {
 
     @GetMapping("editar/{id}")
     public String editar(@PathVariable("id") Long id, Model model) {
+        model.addAttribute("aparelhos", aparelhoRepository.findAll());
         model.addAttribute("recomendacao", recomendacaoRepository.findById(id));
         return "recomendacao/editar";
     }
@@ -75,6 +81,7 @@ public class RecomendacaoController {
     @PostMapping("editar")
     public String editar(@Valid Recomendacao recomendacao, BindingResult result, RedirectAttributes redirectAttributes, Model model) {
         if (result.hasErrors()) {
+            model.addAttribute("aparelhos", aparelhoRepository.findAll());
             return "recomendacao/editar";
         }
         recomendacaoRepository.save(recomendacao);

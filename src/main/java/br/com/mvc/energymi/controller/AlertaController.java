@@ -1,6 +1,7 @@
 package br.com.mvc.energymi.controller;
 import br.com.mvc.energymi.model.Alerta;
 import br.com.mvc.energymi.repository.AlertaRepository;
+import br.com.mvc.energymi.repository.AparelhoRepository;
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,9 +23,12 @@ public class AlertaController {
     @Autowired
     private AlertaRepository alertaRepository;
 
+    @Autowired
+    private AparelhoRepository aparelhoRepository;
 
     @GetMapping("cadastrar")
     public String cadastrar(Alerta alerta, Model model) {
+        model.addAttribute("aparelhos", aparelhoRepository.findAll());
         model.addAttribute("alerta", new Alerta());
 
         return "alerta/cadastrar";
@@ -35,7 +39,7 @@ public class AlertaController {
     @Transactional
     public String cadastrar(@Valid Alerta alerta, BindingResult result, RedirectAttributes redirectAttributes, Model model) {
         if (result.hasErrors()) {
-
+            model.addAttribute("aparelhos", aparelhoRepository.findAll());
             return "alerta/cadastrar";
         }
         alertaRepository.save(alerta);
@@ -55,6 +59,7 @@ public class AlertaController {
     public String detalhesAlerta(@PathVariable Long id, Model model) {
         Optional<Alerta> optionalAlerta = alertaRepository.findById(id);
         if (optionalAlerta.isPresent()) {
+            model.addAttribute("aparelhos", aparelhoRepository.findAll());
             model.addAttribute("alerta", optionalAlerta.get());
         } else {
             model.addAttribute("erro", "alerta não encontrado");
@@ -66,6 +71,7 @@ public class AlertaController {
 
     @GetMapping("editar/{id}")
     public String editar(@PathVariable("id") Long id, Model model) {
+        model.addAttribute("aparelhos", aparelhoRepository.findAll());
         model.addAttribute("alerta", alertaRepository.findById(id));
         return "alerta/editar";
     }
@@ -74,6 +80,7 @@ public class AlertaController {
     @PostMapping("editar")
     public String editar(@Valid Alerta alerta, BindingResult result, RedirectAttributes redirectAttributes, Model model) {
         if (result.hasErrors()) {
+            model.addAttribute("aparelhos", aparelhoRepository.findAll());
             return "alerta/editar";
         }
         alertaRepository.save(alerta);
