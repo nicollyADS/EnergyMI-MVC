@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="pt-br" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout}">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cadastro de Consumo</title>
+    <link th:href="@{/webjars/bootstrap/css/bootstrap.min.css}" rel="stylesheet"/>
+</head>
+<body>
+
+<div layout:fragment="conteudo">
+
+    <h1 th:text="${consumo.id == null ? 'Cadastro de Consumo' : 'Editar Consumo'}"></h1>
+
+    <!-- Mensagem de sucesso -->
+    <div th:if="${mensagem}" class="alert alert-success" role="alert">
+        <p th:text="${mensagem}">Consumo cadastrado com sucesso!</p>
+    </div>
+
+    <!-- Formulário de cadastro e edição do consumo -->
+    <form th:action="${consumo.id == null ? '/consumo/cadastrar' : '/consumo/editar'}"
+          th:object="${consumo}" method="post">
+
+        <!-- Campo de Data -->
+        <div class="mb-3">
+            <label for="data" class="form-label">Data do Consumo</label>
+            <input type="date" class="form-control" id="data" th:field="*{data}" required>
+            <div th:if="${#fields.hasErrors('data')}" class="text-danger" th:errors="*{data}"></div>
+        </div>
+
+        <!-- Campo de Consumo de Energia -->
+        <div class="mb-3">
+            <label for="consumoEnergia" class="form-label">Consumo de Energia (kWh)</label>
+            <input type="number" class="form-control" id="consumoEnergia" th:field="*{consumoEnergia}" required>
+            <div th:if="${#fields.hasErrors('consumoEnergia')}" class="text-danger" th:errors="*{consumoEnergia}"></div>
+        </div>
+
+        <!-- Campo de Custo -->
+        <div class="mb-3">
+            <label for="custo" class="form-label">Custo (R$)</label>
+            <input type="number" class="form-control" id="custo" th:field="*{custo}" required>
+            <div th:if="${#fields.hasErrors('custo')}" class="text-danger" th:errors="*{custo}"></div>
+        </div>
+
+        <!-- Campo de Observações -->
+        <div class="mb-3">
+            <label for="observacoes" class="form-label">Observações</label>
+            <textarea class="form-control" id="observacoes" th:field="*{observacoes}" rows="3"></textarea>
+            <div th:if="${#fields.hasErrors('observacoes')}" class="text-danger" th:errors="*{observacoes}"></div>
+        </div>
+
+        <!-- Botão de envio -->
+        <button type="submit" class="btn btn-primary">
+            <span th:text="${consumo.id == null ? 'Cadastrar' : 'Atualizar'}"></span>
+        </button>
+    </form>
+</div>
+
+<script th:src="@{/webjars/bootstrap/js/bootstrap.bundle.min.js}"></script>
+</body>
+</html>

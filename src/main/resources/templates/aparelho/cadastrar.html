@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="pt-br" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout}">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cadastro de Aparelho</title>
+    <link th:href="@{/webjars/bootstrap/css/bootstrap.min.css}" rel="stylesheet"/>
+</head>
+<body>
+
+<div layout:fragment="conteudo">
+
+    <h1>Cadastro de Aparelho</h1>
+
+    <!-- Mensagem de sucesso -->
+    <div th:if="${mensagem}" class="alert alert-success" role="alert">
+        <p th:text="${mensagem}">Aparelho cadastrado com sucesso!</p>
+    </div>
+
+    <!-- Formulário de cadastro do aparelho -->
+    <form th:action="@{/aparelho/cadastrar}" th:object="${aparelho}" method="post">
+        <div class="mb-3">
+            <label for="nome" class="form-label">Nome do Aparelho</label>
+            <input type="text" class="form-control" id="nome" th:field="*{nome}" placeholder="Informe o nome do aparelho">
+            <div th:if="${#fields.hasErrors('nome')}" class="text-danger" th:errors="*{nome}"></div>
+        </div>
+        <div class="mb-3">
+            <label for="tipo" class="form-label">Tipo de Aparelho</label>
+            <input type="text" class="form-control" id="tipo" th:field="*{tipo}" placeholder="Informe o tipo do aparelho">
+            <div th:if="${#fields.hasErrors('tipo')}" class="text-danger" th:errors="*{tipo}"></div>
+        </div>
+        <div class="mb-3">
+            <label for="watts" class="form-label">Watts</label>
+            <input type="number" class="form-control" id="watts" th:field="*{watts}" placeholder="Informe a potência em watts">
+            <div th:if="${#fields.hasErrors('watts')}" class="text-danger" th:errors="*{watts}"></div>
+        </div>
+        <button type="submit" class="btn btn-primary">Cadastrar</button>
+    </form>
+</div>
+
+<script th:src="@{/webjars/bootstrap/js/bootstrap.bundle.min.js}"></script>
+</body>
+</html>

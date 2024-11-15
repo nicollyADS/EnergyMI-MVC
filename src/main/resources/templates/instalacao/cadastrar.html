@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout}">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cadastro de Instalação</title>
+    <link th:href="@{/webjars/bootstrap/css/bootstrap.min.css}" rel="stylesheet"/>
+</head>
+<body>
+
+<div layout:fragment="conteudo">
+
+    <h1>Cadastro de Instalação</h1>
+
+    <div th:if="${mensagem}" class="alert alert-success" role="alert">
+        <p th:text="${mensagem}">Instalação cadastrada com sucesso!</p>
+    </div>
+
+    <form th:action="@{/instalacao/cadastrar}" th:object="${instalacao}" method="post">
+        <div class="mb-3">
+            <label for="estado" class="form-label">Estado</label>
+            <input type="text" class="form-control" id="estado" th:field="*{estado}" placeholder="Informe o estado">
+            <div th:if="${#fields.hasErrors('estado')}" class="text-danger" th:errors="*{estado}"></div>
+        </div>
+        <div class="mb-3">
+            <label for="cidade" class="form-label">Cidade</label>
+            <input type="text" class="form-control" id="cidade" th:field="*{cidade}" placeholder="Informe a cidade">
+            <div th:if="${#fields.hasErrors('cidade')}" class="text-danger" th:errors="*{cidade}"></div>
+        </div>
+        <div class="mb-3">
+            <label for="bairro" class="form-label">Bairro</label>
+            <input type="text" class="form-control" id="bairro" th:field="*{bairro}" placeholder="Informe o bairro">
+            <div th:if="${#fields.hasErrors('bairro')}" class="text-danger" th:errors="*{bairro}"></div>
+        </div>
+        <div class="mb-3">
+            <label for="rua" class="form-label">Rua</label>
+            <input type="text" class="form-control" id="rua" th:field="*{rua}" placeholder="Informe a rua">
+            <div th:if="${#fields.hasErrors('rua')}" class="text-danger" th:errors="*{rua}"></div>
+        </div>
+        <div class="mb-3">
+            <label for="numeroEndereco" class="form-label">Número do Endereço</label>
+            <input type="number" class="form-control" id="numeroEndereco" th:field="*{numeroEndereco}" placeholder="Informe o número do endereço">
+            <div th:if="${#fields.hasErrors('numeroEndereco')}" class="text-danger" th:errors="*{numeroEndereco}"></div>
+        </div>
+        <div class="mb-3">
+            <label for="observacoes" class="form-label">Observações</label>
+            <textarea class="form-control" id="observacoes" th:field="*{observacoes}" rows="3" placeholder="Informe observações (opcional)"></textarea>
+            <div th:if="${#fields.hasErrors('observacoes')}" class="text-danger" th:errors="*{observacoes}"></div>
+        </div>
+        <button type="submit" class="btn btn-primary">Cadastrar</button>
+    </form>
+</div>
+
+<script th:src="@{/webjars/bootstrap/js/bootstrap.bundle.min.js}"></script>
+</body>
+</html>

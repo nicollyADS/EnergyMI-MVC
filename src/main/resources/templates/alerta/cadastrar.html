@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="pt-br" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout}">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cadastro de Alerta</title>
+    <link th:href="@{/webjars/bootstrap/css/bootstrap.min.css}" rel="stylesheet"/>
+</head>
+<body>
+
+<div layout:fragment="conteudo">
+
+    <h1>Cadastro de Alerta</h1>
+
+    <!-- Mensagem de sucesso -->
+    <div th:if="${mensagem}" class="alert alert-success" role="alert">
+        <p th:text="${mensagem}">Alerta cadastrado com sucesso!</p>
+    </div>
+
+    <!-- Formulário de cadastro do alerta -->
+    <form th:action="@{/alerta/cadastrar}" th:object="${alerta}" method="post">
+        <div class="mb-3">
+            <label for="observacao" class="form-label">Observação</label>
+            <input type="text" class="form-control" id="observacao" th:field="*{observacao}" placeholder="Informe a observação">
+            <div th:if="${#fields.hasErrors('observacao')}" class="text-danger" th:errors="*{observacao}"></div>
+        </div>
+        <div class="mb-3">
+            <label for="prioridade" class="form-label">Prioridade</label>
+            <input type="text" class="form-control" id="prioridade" th:field="*{prioridade}" placeholder="Informe a prioridade">
+            <div th:if="${#fields.hasErrors('prioridade')}" class="text-danger" th:errors="*{prioridade}"></div>
+        </div>
+        <div class="mb-3">
+            <label for="dataCriacao" class="form-label">Data de Criação</label>
+            <input type="date" class="form-control" id="dataCriacao" th:field="*{dataCriacao}" placeholder="Informe a data de criação">
+            <div th:if="${#fields.hasErrors('dataCriacao')}" class="text-danger" th:errors="*{dataCriacao}"></div>
+        </div>
+        <button type="submit" class="btn btn-primary">Cadastrar</button>
+    </form>
+</div>
+
+<script th:src="@{/webjars/bootstrap/js/bootstrap.bundle.min.js}"></script>
+</body>
+</html>
