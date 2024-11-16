@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout}">
+<head>
+    <meta charset="UTF-8">
+    <title>Registro de Usuário</title>
+</head>
+<body>
+<div layout:fragment="conteudo">
+    <br>
+    <h1 class="d-flex justify-content-center text-center">Faça seu Cadastro!</h1>
+    <br>
+    <form th:object="${usuario}" th:action="@{/usuario/cadastrar}" method="post">
+        <div class="mb-3">
+            <label>Usuário</label>
+            <input th:field="*{username}" class="form-control">
+            <div th:if="${#fields.hasErrors('username')}" class="text-danger">
+                <span th:errors="*{username}"></span>
+            </div>
+        </div>
+        <div class="mb-3">
+            <label>Senha</label>
+            <input type="password" th:field="*{password}" class="form-control">
+            <div th:if="${#fields.hasErrors('password')}" class="text-danger">
+                <span th:errors="*{password}"></span>
+            </div>
+        </div>
+
+        <button class="btn btn-dark">Cadastrar</button>
+    </form>
+</div>
+</body>
+</html>
