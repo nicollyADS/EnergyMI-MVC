@@ -13,14 +13,9 @@ public class DataInitializer {
     CommandLineRunner initDatabase(UsuarioRepository userRepository, PasswordEncoder passwordEncoder) {
         return args -> {
             Usuario user1 = new Usuario();
-            user1.setUsername("user1");
-            user1.setPassword(passwordEncoder.encode("password"));
+            user1.setUsername("admin");
+            user1.setPassword(passwordEncoder.encode("admin"));
             userRepository.save(user1);
-
-            Usuario user2 = new Usuario();
-            user2.setUsername("user2");
-            user2.setPassword(passwordEncoder.encode("password2"));
-            userRepository.save(user2);
         };
     }
 }
