@@ -27,7 +27,6 @@ public class UsuarioService implements UserDetailsService {
     @Autowired
     private RoleRepository roleRepository;
 
-    //Salvar um usuário no banco
     public void salvar(String username, String password, List<String> roles){
         Set<Role> listaRoles = new HashSet<>();
         for (String nome : roles){
