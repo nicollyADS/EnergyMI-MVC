@@ -1,6 +1,7 @@
 package br.com.mvc.energymi.controller;
 
 import br.com.mvc.energymi.dto.UseForm;
+import br.com.mvc.energymi.repository.RoleRepository;
 import br.com.mvc.energymi.repository.UsuarioRepository;
 import br.com.mvc.energymi.service.UsuarioService;
 import jakarta.validation.Valid;
@@ -18,7 +19,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class UsuarioController {
 
     @Autowired
-    private UsuarioRepository usuarioRepository;
+    private RoleRepository roleRepository;
 
     @Autowired
     private UsuarioService usuarioService;
@@ -29,17 +30,19 @@ public class UsuarioController {
     @GetMapping("cadastrar")
     public String cadastrar(Model model){
         model.addAttribute("usuario", new UseForm());
+        model.addAttribute("roles", roleRepository.findAll());
         return "usuario/cadastrar";
     }
 
     @PostMapping("cadastrar")
     public String cadastrar(@Valid UseForm useForm, BindingResult bindingResult, Model model){
         if (bindingResult.hasErrors()) {
+            model.addAttribute("roles", roleRepository.findAll());
             return "usuario/cadastrar";
         }
-        usuarioService.salvar(useForm.getUsername(), passwordEncoder.encode(useForm.getPassword()));
+        usuarioService.salvar(useForm.getUsername(),
+                passwordEncoder.encode(useForm.getPassword()), useForm.getRoles());
         return "redirect:/login";
     }
-
 
 }
