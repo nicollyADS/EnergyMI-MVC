@@ -17,25 +17,25 @@
 
         <div class="mb-3">
             <label class="form-label">Nome do Aparelho</label>
-            <input class="form-control" th:field="*{nome}" type="text" placeholder="Informe o nome do aparelho" required>
+            <input class="form-control" th:field="*{nome}" type="text" placeholder="Informe o nome do aparelho">
             <p th:if="${#fields.hasErrors('nome')}" class="text text-danger" th:errors="*{nome}"></p>
         </div>
 
         <div class="mb-3">
             <label class="form-label">Tipo de Aparelho</label>
-            <input class="form-control" th:field="*{tipo}" type="text" placeholder="Informe o tipo do aparelho" required>
+            <input class="form-control" th:field="*{tipo}" type="text" placeholder="Informe o tipo do aparelho" >
             <p th:if="${#fields.hasErrors('tipo')}" class="text text-danger" th:errors="*{tipo}"></p>
         </div>
 
         <div class="mb-3">
             <label class="form-label">Watts</label>
-            <input class="form-control" th:field="*{watts}" type="number" placeholder="Informe os watts" required>
+            <input class="form-control" th:field="*{watts}" type="number" placeholder="Informe os watts" >
             <p th:if="${#fields.hasErrors('watts')}" class="text text-danger" th:errors="*{watts}"></p>
         </div>
 
         <div class="mb-3">
             <label class="form-label">Instalação</label>
-            <select th:field="*{instalacao.id}" class="form-select" required>
+            <select th:field="*{instalacao.id}" class="form-select" >
                 <option value="">Selecione a instalação</option>
                 <option th:each="instalacao : ${instalacoes}"
                         th:value="${instalacao.id}"

@@ -17,19 +17,19 @@
 
         <div class="mb-3">
             <label class="form-label">Observação</label>
-            <input class="form-control" th:field="*{observacao}" type="text" id="observacao" placeholder="Informe a observação" required>
+            <input class="form-control" th:field="*{observacao}" type="text" id="observacao" placeholder="Informe a observação" >
             <p th:if="${#fields.hasErrors('observacao')}" class="text text-danger" th:errors="*{observacao}"></p>
         </div>
 
         <div class="mb-3">
             <label class="form-label">Data</label>
-            <input class="form-control" th:field="*{data}" type="date" id="data" required>
+            <input class="form-control" th:field="*{data}" type="date" id="data" >
             <p th:if="${#fields.hasErrors('data')}" class="text text-danger" th:errors="*{data}"></p>
         </div>
 
         <div class="mb-3">
             <label class="form-label">Status</label>
-            <input class="form-control" th:field="*{status}" type="text" id="status" placeholder="Informe o status" required>
+            <input class="form-control" th:field="*{status}" type="text" id="status" placeholder="Informe o status" >
             <p th:if="${#fields.hasErrors('status')}" class="text text-danger" th:errors="*{status}"></p>
         </div>
 

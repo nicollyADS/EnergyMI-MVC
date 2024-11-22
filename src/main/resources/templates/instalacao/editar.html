@@ -17,31 +17,31 @@
 
         <div class="mb-3">
             <label class="form-label">Estado</label>
-            <input class="form-control" th:field="*{estado}" type="text" id="estado" placeholder="Informe o estado" required>
+            <input class="form-control" th:field="*{estado}" type="text" id="estado" placeholder="Informe o estado" >
             <p th:if="${#fields.hasErrors('estado')}" class="text text-danger" th:errors="*{estado}"></p>
         </div>
 
         <div class="mb-3">
             <label class="form-label">Cidade</label>
-            <input class="form-control" th:field="*{cidade}" type="text" id="cidade" placeholder="Informe a cidade" required>
+            <input class="form-control" th:field="*{cidade}" type="text" id="cidade" placeholder="Informe a cidade" >
             <p th:if="${#fields.hasErrors('cidade')}" class="text text-danger" th:errors="*{cidade}"></p>
         </div>
 
         <div class="mb-3">
             <label class="form-label">Bairro</label>
-            <input class="form-control" th:field="*{bairro}" type="text" id="bairro" placeholder="Informe o bairro" required>
+            <input class="form-control" th:field="*{bairro}" type="text" id="bairro" placeholder="Informe o bairro" >
             <p th:if="${#fields.hasErrors('bairro')}" class="text text-danger" th:errors="*{bairro}"></p>
         </div>
 
         <div class="mb-3">
             <label class="form-label">Rua</label>
-            <input class="form-control" th:field="*{rua}" type="text" id="rua" placeholder="Informe a rua" required>
+            <input class="form-control" th:field="*{rua}" type="text" id="rua" placeholder="Informe a rua" >
             <p th:if="${#fields.hasErrors('rua')}" class="text text-danger" th:errors="*{rua}"></p>
         </div>
 
         <div class="mb-3">
             <label class="form-label">Número do Endereço</label>
-            <input class="form-control" th:field="*{numeroEndereco}" type="number" id="numeroEndereco" placeholder="Informe o número do endereço" required>
+            <input class="form-control" th:field="*{numeroEndereco}" type="number" id="numeroEndereco" placeholder="Informe o número do endereço" >
             <p th:if="${#fields.hasErrors('numeroEndereco')}" class="text text-danger" th:errors="*{numeroEndereco}"></p>
         </div>
 

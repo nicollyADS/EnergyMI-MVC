@@ -12,7 +12,7 @@
     <p><strong>ID da Recomendação:</strong> <span th:text="${recomendacao.id}"></span></p>
     <p><strong>Data da Recomendação:</strong> <span th:text="${#temporals.format(recomendacao.data, 'dd/MM/yyyy')}"></span></p>
     <p><strong>Status:</strong> <span th:text="${recomendacao.status}"></span></p>
-    <p><strong>ID da Recomendação:</strong> <span th:text="${recomendacao.id}"></span></p>
+    <p><strong>Nome do Aparelho:</strong> <span th:text="${recomendacao.aparelho.nome}"></span></p>
     <p><strong>Observações:</strong> <span th:text="${recomendacao.observacao}"></span></p>
     <p><strong>Aparelho:</strong> <span th:text="${recomendacao.aparelho.nome}"></span></p>
 

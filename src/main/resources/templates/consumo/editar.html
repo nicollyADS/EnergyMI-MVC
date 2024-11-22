@@ -18,19 +18,19 @@
 
         <div class="mb-3">
             <label class="form-label">Data do Consumo</label>
-            <input class="form-control" th:field="*{data}" type="date" id="data" required>
+            <input class="form-control" th:field="*{data}" type="date" id="data" >
             <p th:if="${#fields.hasErrors('data')}" class="text text-danger" th:errors="*{data}"></p>
         </div>
 
         <div class="mb-3">
             <label class="form-label">Consumo de Energia (kWh)</label>
-            <input class="form-control" th:field="*{consumoEnergia}" type="number" id="consumoEnergia" placeholder="Informe o consumo de energia" required>
+            <input class="form-control" th:field="*{consumoEnergia}" type="number" id="consumoEnergia" placeholder="Informe o consumo de energia" >
             <p th:if="${#fields.hasErrors('consumoEnergia')}" class="text text-danger" th:errors="*{consumoEnergia}"></p>
         </div>
 
         <div class="mb-3">
             <label class="form-label">Custo (R$)</label>
-            <input class="form-control" th:field="*{custo}" type="number" id="custo" placeholder="Informe o custo" required step="0.01">
+            <input class="form-control" th:field="*{custo}" type="number" id="custo" placeholder="Informe o custo">
             <p th:if="${#fields.hasErrors('custo')}" class="text text-danger" th:errors="*{custo}"></p>
         </div>
 
