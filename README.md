@@ -7,6 +7,12 @@
 - **RM552579** - Nicolly de Almeida Gonçalves  
 - **RM551521** - Patrick Jaguski  
 
+## Passo a passo para teste
+- Clonar o repositório
+- Abrir a IDE e Habilitar o plugin do Lombok 
+- Localizar a Main (EnergyMiApplication) e rodar o código
+- inserir na web a URL: localhost:8080/
+
 ## Login para teste
 - **usuario** - admin
 - **senha** - admin
