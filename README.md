@@ -24,4 +24,4 @@
 - https://youtu.be/-mCgv_fwQYg?si=iZ1SHCys3llyIWwA
 
 ## Link do Vídeo Pitch
-- 
+- https://youtu.be/YgusJFVYgFA?si=-88-NwLxoMQXOH8P
