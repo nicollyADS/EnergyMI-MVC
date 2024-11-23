@@ -15,7 +15,7 @@
 - https://github.com/nicollyADS/EnergyMI-MVC
 
 ## Link do Vídeo de Demonstração do Software
-- 
+- https://youtu.be/-mCgv_fwQYg?si=iZ1SHCys3llyIWwA
 
 ## Link do Vídeo Pitch
 - 
